@@ -39,12 +39,13 @@ module.exports = {
         const [Bearer, token] = auth.split(' ');
         const authResult = verify(token);
         if (Bearer !== 'Bearer') {
-          res.status(401).json({ message: '올바른 형태가 아닙니다.' });
+          res.status(401).json({ success: false, message: '올바른 형태의 token이 아닙니다.' });
           return;
         }
 
         if (authResult.ok === false && authResult.message === 'jwt expired') {
           res.status(401).json({
+            success: false,
             message: '토큰이 만료되었습니다',
           });
           return;
@@ -56,10 +57,10 @@ module.exports = {
 
         next();
       } else {
-        res.status(400).json({ message: '로그인 후 이용바랍니다' });
+        res.status(400).json({ success: false, message: '로그인 후 이용바랍니다' });
       }
     } catch (err) {
-      console.error('서버에러', err);
+      res.status(400).json({ success: false, message: '인증 실패했습니다', err });
     }
   },
 };

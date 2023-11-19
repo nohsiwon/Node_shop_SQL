@@ -87,7 +87,7 @@ router.post('/signin', async (req, res) => {
 
     const token = jwt.sign({ userId }, process.env.JWT_KEY, { expiresIn: '12h' });
     res.header('Authorization', `Bearer ${token}`);
-    res.status(200).json({ success: true, message: '로그인에 성공했습니다' });
+    res.status(200).json({ success: true, message: '로그인에 성공했습니다', data: { email, userId } });
   } catch (err) {
     console.error('회원 가입 오류', err);
     return res.status(500).json({ success: false, message: '서버 오류 발생' });
@@ -102,7 +102,7 @@ router.get('/myinfo', tokenMiddleware, async (req, res) => {
 
     console.log(user);
     if (!user) {
-      res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+      res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
     }
 
     const userInfo = {
@@ -111,10 +111,9 @@ router.get('/myinfo', tokenMiddleware, async (req, res) => {
       createdAt: user.createdAt,
     };
 
-    res.status(200).json({ userInfo });
+    res.status(200).json({ success: true, message: '정보 조회 성공했습니다', userInfo });
   } catch (err) {
-    console.error('사용자 정보 조회 오류', err);
-    res.status(500).json({ message: '서버 오류 발생' });
+    res.status(500).json({ success: false, message: '사용자 정보 조회 오류', err });
   }
 });
 
