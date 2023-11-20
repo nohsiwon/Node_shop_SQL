@@ -61,7 +61,24 @@ https://www.erdcloud.com/d/wTFT7SdHzt3ApmZ3R
 
 7. 개발 환경
 - nodemon은 코드 변경을 감지하여 자동으로 서버를 재시작해주는 패키지이고 사용했을 때 코드 변경 후 저장 시 바로 서버 시작이 되어 빠르게 테스트할 수 있었다
-- npm 
+- npm 설치방법
+  1. 일반
+  - `npm install 패키지명`으로 설치
+  - node_module, package.json, package-lock.json에 설치되며 해당 프로젝트에 사용
+
+  <br>
+
+  2. 글로벌
+  - `npm install -g 패키지명`으로 설치
+  - 시스템 전체에 사용된다. 여러 프로젝트에서 활용되는 패키지 설치 시 사용
+ 
+  <br>
+ 
+  3. 개발용
+  - `npm install -D 패키지명`으로 설치
+  - 개발환경에서만 사용하는 경우 사용
+
+<br>
 
 ## 문제점
 - 상품 생성 시에 `userId`를 저장하는 조건에 `products` 모델에 `userId`를 생성하여 저장해서 Table의 JOIN 미활용, 어떻게 사용해야할지 감이 안잡힘.. 
